@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<time.h>
 
-#define NUM_REP 100;
+#define NUM_REP 100
 
 void heap_sort(int *vet, int N);
 void cria_heap(int *vetor, int i, int f);
