@@ -12,10 +12,10 @@ Escrever um ShortPaper (4 páginas) somente focando nos seguintes dados:
 
 ### Compilando o heapsort serial
 
-`gcc heapsort/serial.c -o bin/serial`
+`gcc src/serial.c -o bin/serial`
 
 ### Compilando o heapsort paralelo
 
-`gcc heapsort/parallel.c -o bin/parallel -fopenmp`
+`gcc src/parallel.c -o bin/parallel -fopenmp`
 
 `-fopenmp` => Realiza a vinculação entre os arquivos compilados do projeto com a biblioteca omp
