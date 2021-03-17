@@ -16,15 +16,12 @@ int main()
 	double tempo_medio = 0.0;
 
 	while (sair == 0) {
-
-		printf("\n--------------------------------------\n");
+		printf("\n\n\n--------------------------------------\n");
 		printf("\n ORDENACAO USANDO HEAPSORT PARALELO");
 		printf("\n 1-GERAR NOVO VETOR");
 		printf("\n 2-SAIR");
-		printf("\n >>>>>");
 		printf("\n--------------------------------------\n");
 		scanf("%d",&menu);
-		system("cls");
 
 		switch(menu) {
 			case 1:
@@ -69,9 +66,6 @@ int main()
 				printf("\nTamanho do Vetor = %d\n", tamanho_vetor);
 				printf("\nNumero de Threads = %d\n", NUM_THREADS);
 				printf("\nTempo medio = %g segundos\n", tempo_medio);
-
-				system("pause");
-				system("cls");
 				break;
 			case 2:
 				printf("\nPrograma Finalizado!");
