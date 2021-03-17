@@ -2,7 +2,7 @@
 
 Implementação do algoritmo de ordenação heapsort na versão sequencial e paralela
 
-https://drive.google.com/file/d/1wMSbRwEOO3c-ChC4B-BmVJSOk6ZajsHD/view?usp=sharing
+https://docs.google.com/document/d/1wMSbRwEOO3c-ChC4B-BmVJSOk6ZajsHD/edit
 
 ## Compilando os arquivos
 
