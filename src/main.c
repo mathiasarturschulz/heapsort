@@ -16,7 +16,6 @@ void cria_heap_paralelo(int *vetor, int i, int f);
 int main()
 {
 	int *vetor;
-	double tempo_medio = 0.0;
 
     // define se os vetores serão aleatórios (1) ou inversos (0)
     int aleatorio = 1;
@@ -32,7 +31,6 @@ int main()
     for (int j = 0; j < NUM_REP; j++) {
         // Gera o vetor a ser ordenado (Aleatorio ou Inverso)
         if (aleatorio) {
-            printf("entrou");
             for (int i  = 0; i < tamanho_vetor; i++) {
                 vetor[i] = rand() % (tamanho_vetor * 2);
             }
@@ -47,6 +45,8 @@ int main()
         // }
         // printf(" | \n");
 
+        //
+        //
         // HEAPSORT - SERIAL
 
         // Inicia a contagem do tempo de execução
@@ -59,9 +59,11 @@ int main()
         tempo_uso = clock() - tempo_uso;
 
         // Realiza o calculo do tempo de execução do algoritmo em segundos
-        double tempo_exec = ((double) tempo_uso) / CLOCKS_PER_SEC;
-        printf("Heapsort serial executado em %g segundos\n", tempo_exec);
+        double tempo_exec_serial = ((double) tempo_uso) / CLOCKS_PER_SEC;
+        printf("Heapsort serial: %g \n", tempo_exec_serial);
 
+        //
+        //
         // HEAPSORT - PARALELO
 
         // Coleta o tempo inicial da execução do algoritmo
@@ -74,18 +76,15 @@ int main()
         double tempo_final = omp_get_wtime();
 
         // Realiza o calculo do tempo total de execução do algoritmo em segundos
-        double tempo_total = tempo_final - tempo_inicial;
-        printf("Heapsort paralelo executado em %g segundos\n", tempo_total);
+        double tempo_total_paralelo = tempo_final - tempo_inicial;
+        printf("Heapsort paralelo: %g \n", tempo_total_paralelo);
 
-        // Realiza a soma do tempo de execução total do algoritmo
-        tempo_medio += tempo_exec;
+        // speedup = tempo de execução do algoritmo serial / tempo de execução do algoritmo paralelo
+        double speedup = tempo_exec_serial / tempo_total_paralelo;
+        printf("%g", speedup);
     }
 
-    // Calcula o tempo médio de execução em relação ao número de repetições
-    tempo_medio /= NUM_REP;
-
     printf("\nTamanho do Vetor = %d\n", tamanho_vetor);
-    printf("\nTempo medio = %g segundos\n", tempo_medio);
 }
 
 // Realiza a ordenação do vetor através do algoritmo Heapsort
