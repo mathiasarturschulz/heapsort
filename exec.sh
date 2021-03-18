@@ -2,7 +2,7 @@
 
 echo "Compilando e executando o arquivo main!"
 
-gcc src/main.c -o bin/main
+gcc src/main.c -o bin/main -fopenmp
 
 ./bin/main
 
