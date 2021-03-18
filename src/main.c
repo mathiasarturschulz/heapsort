@@ -5,30 +5,36 @@
 #include<omp.h>
 
 #define NUM_REP 100
-#define NUM_THREADS 64
 
 void heap_sort_serial(int *vet, int N);
 void cria_heap_serial(int *vetor, int i, int f);
 
-void heap_sort_paralelo(int *vet, int N);
+void heap_sort_paralelo(int *vet, int N, int NUM_THREADS);
 void cria_heap_paralelo(int *vetor, int i, int f);
 
 int main()
 {
 	int *vetor;
+    int NUM_THREADS = 2;
 
     // define se os vetores serão aleatórios (1) ou inversos (0)
-    int aleatorio = 1;
+    int aleatorio = 0;
 
     // define o tamanho do vetor
-    int tamanho_vetor = 10;
+    int tamanho_vetor = 10000;
+    // int tamanho_vetor = 100000;
+    // int tamanho_vetor = 1000000;
+    // int tamanho_vetor = 10000000;
 
     printf("\nOrdenação utilizando Heapsort serial e paralelo ");
 
     vetor = calloc(tamanho_vetor, sizeof(unsigned int));
     srand(time(NULL));
 
-    for (int j = 0; j < NUM_REP; j++) {
+    for (int i = NUM_THREADS; i <= 256; i*=2) {
+        NUM_THREADS = i;
+        // printf("\n\nthread: %i", NUM_THREADS);
+
         // Gera o vetor a ser ordenado (Aleatorio ou Inverso)
         if (aleatorio) {
             for (int i  = 0; i < tamanho_vetor; i++) {
@@ -60,7 +66,7 @@ int main()
 
         // Realiza o calculo do tempo de execução do algoritmo em segundos
         double tempo_exec_serial = ((double) tempo_uso) / CLOCKS_PER_SEC;
-        printf("Heapsort serial: %g \n", tempo_exec_serial);
+        // printf("\nHeapsort serial: %g ", tempo_exec_serial);
 
         //
         //
@@ -70,18 +76,18 @@ int main()
         double tempo_inicial = omp_get_wtime();
 
         // Realiza a chamada do algoritmo de ordenação paralelizado
-        heap_sort_paralelo(vetor, tamanho_vetor);
+        heap_sort_paralelo(vetor, tamanho_vetor, NUM_THREADS);
 
         // Coleta o tempo inicial da execução do algoritmo
         double tempo_final = omp_get_wtime();
 
         // Realiza o calculo do tempo total de execução do algoritmo em segundos
         double tempo_total_paralelo = tempo_final - tempo_inicial;
-        printf("Heapsort paralelo: %g \n", tempo_total_paralelo);
+        // printf("\nHeapsort paralelo: %g ", tempo_total_paralelo);
 
         // speedup = tempo de execução do algoritmo serial / tempo de execução do algoritmo paralelo
         double speedup = tempo_exec_serial / tempo_total_paralelo;
-        printf("%g", speedup);
+        printf("\n%f", speedup);
     }
 
     printf("\nTamanho do Vetor = %d\n", tamanho_vetor);
@@ -146,7 +152,7 @@ void cria_heap_serial(int *vet, int i, int f)
 }
 
 // Realiza o processo de ordenação de maneira paralelizada
-void heap_sort_paralelo(int *vet, int N)
+void heap_sort_paralelo(int *vet, int N, int NUM_THREADS)
 {
 	#pragma omp parallel num_threads(NUM_THREADS) shared(vet, N)
 	{
